@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Data
 @ToString
@@ -16,14 +15,13 @@ public class BaseCreateEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
-    protected LocalDate createdAt;
+    protected Long createdAt;
 
     @PrePersist
     protected void onCreate() {
         if (createdAt == null) {
-            this.createdAt = LocalDate.now();
+            this.createdAt = System.currentTimeMillis();
         }
     }
 }
