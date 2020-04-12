@@ -8,8 +8,11 @@ import cricket.tournament.simulation.repository.dto.response.PlayerResponse;
 import cricket.tournament.simulation.repository.model.Player;
 import cricket.tournament.simulation.repository.repository.PlayerRepository;
 import cricket.tournament.simulation.service.PlayerService;
+import cricket.tournament.simulation.service.converter.PlayerConverters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class PlayerServiceImpl implements PlayerService {
@@ -20,13 +23,7 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public PlayerResponse getPlayerByShirtId(Long playerShirtId) {
         Player player = playerRepository.findByPlayerShirtId(playerShirtId);
-        return convertPlayerToPlayerResponse(player);
-    }
-
-    private PlayerResponse convertPlayerToPlayerResponse(Player player) {
-        return new PlayerResponse(player.getPlayerShirtId(), player.getPlayerName(),
-                player.getPlayerType().getPlayerType(), player.getPositionOfResponsibility().getPositionOfResponsibility(),
-                player.getTeam().getTeamName());
+        return PlayerConverters.convertPlayerToPlayerResponse(player);
     }
 
     @Override
@@ -35,5 +32,23 @@ public class PlayerServiceImpl implements PlayerService {
                 PlayerType.getValue(playerRequest.getPlayerType()), PositionOfResponsibility.getValue(playerRequest.getPositionOfResponsibility()),
                 Team.getValue(playerRequest.getTeam()));
         playerRepository.save(player);
+    }
+
+    @Override
+    public PlayerResponse getPlayerByName(String playerName) {
+        Player player = playerRepository.findByPlayerName(playerName);
+        return PlayerConverters.convertPlayerToPlayerResponse(player);
+    }
+
+    @Override
+    public PlayerResponse getPlayerByPositionOfResponsibility(String positionOfResponsibility) {
+        Player player = playerRepository.findByPositionOfResponsibility(PositionOfResponsibility.getValue(positionOfResponsibility));
+        return PlayerConverters.convertPlayerToPlayerResponse(player);
+    }
+
+    @Override
+    public List<PlayerResponse> getAllPlayersByPlayerType(String playerType) {
+        List<Player> players = playerRepository.findByPlayerType(PlayerType.getValue(playerType));
+        return PlayerConverters.convertPlayersToPlayerResponses(players);
     }
 }
