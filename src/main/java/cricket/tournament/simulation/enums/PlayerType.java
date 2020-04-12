@@ -13,4 +13,14 @@ public enum PlayerType {
     PlayerType(String playerType) {
         this.playerType = playerType;
     }
+
+    public static PlayerType getValue(String playerType){
+
+        for(PlayerType type: PlayerType.values()){
+            if(type.playerType.equalsIgnoreCase(playerType)){
+                return type;
+            }
+        }
+        return null;
+    }
 }

@@ -22,4 +22,13 @@ public enum Team {
     Team(String teamName){
         this.teamName = teamName;
     }
+
+    public static Team getValue(String teamName){
+        for(Team team: Team.values()){
+            if(team.teamName.equalsIgnoreCase(teamName)){
+                return team;
+            }
+        }
+        return null;
+    }
 }

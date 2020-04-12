@@ -10,7 +10,16 @@ public enum PositionOfResponsibility {
 
     private String positionOfResponsibility;
 
-    PositionOfResponsibility(String positionOfResponsibility){
+    PositionOfResponsibility(String positionOfResponsibility) {
         this.positionOfResponsibility = positionOfResponsibility;
+    }
+
+    public static PositionOfResponsibility getValue(String positionOfResponsibility) {
+        for (PositionOfResponsibility por : PositionOfResponsibility.values()) {
+            if (por.positionOfResponsibility.equalsIgnoreCase(positionOfResponsibility)) {
+                return por;
+            }
+        }
+        return null;
     }
 }
