@@ -24,5 +24,5 @@ public class PlayerRequest extends BaseRequestDto {
     private String positionOfResponsibility;
 
     @NotNull
-    private Long teamCode;
+    private String teamName;
 }

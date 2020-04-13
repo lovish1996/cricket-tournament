@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "player_details",
-        uniqueConstraints = {@UniqueConstraint(columnNames = {"player_shirt_id", "team_name"})}
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"player_shirt_id", "team_id"})}
         ,
         indexes = {
                 @Index(name = "positionOfResponsibilityIdx", columnList = "position_of_responsibility")

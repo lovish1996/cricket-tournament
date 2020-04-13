@@ -17,9 +17,13 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "team_details",
-        uniqueConstraints = {@UniqueConstraint(columnNames = {"team_name"})}
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"team_code"})}
 )
 public class Team extends BaseUpdateEntity {
+
+    @NotNull
+    @Column(name = "team_code")
+    private Long teamCode;
 
     @NotNull
     @Column(name = "team_name")

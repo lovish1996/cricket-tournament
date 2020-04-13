@@ -1,6 +1,5 @@
 package cricket.tournament.simulation;
 
-import cricket.tournament.simulation.enums.Team;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,9 +13,6 @@ import org.springframework.context.annotation.ComponentScan;
 public class CricketTournamentApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
-        for (Team team : Team.values()) {
-            System.out.println(team.getTeamCode() + " " + team.getTeamName());
-        }
         SpringApplication.run(CricketTournamentApplication.class, args);
     }
 

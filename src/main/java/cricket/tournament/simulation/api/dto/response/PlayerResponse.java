@@ -6,6 +6,7 @@ import lombok.Getter;
 
 @Getter
 public class PlayerResponse {
+
     private Long playerShirtId;
     private String playerName;
     private String playerType;

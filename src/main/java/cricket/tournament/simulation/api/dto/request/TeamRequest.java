@@ -16,6 +16,6 @@ public class TeamRequest extends BaseRequestDto {
     @NotNull
     private String teamName;
 
-    private RankingRequest rankingRequest;
+    private RankingRequestResponse rankingRequestResponse;
 
 }

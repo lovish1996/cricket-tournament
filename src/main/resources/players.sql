@@ -19,6 +19,7 @@ create table team_details
     id         bigint(20)  not null auto_increment,
     created_at bigint(20) default null,
     updated_at bigint(20) default null,
+    team_code int(11) not null unique,
     team_name  varchar(60) not null,
     ranking_id int(11),
     primary key (id),

@@ -1,19 +1,17 @@
 package cricket.tournament.simulation.service.impl;
 
-import cricket.tournament.simulation.enums.PlayerType;
-import cricket.tournament.simulation.enums.PositionOfResponsibility;
 import cricket.tournament.simulation.api.dto.request.PlayerRequest;
 import cricket.tournament.simulation.api.dto.response.PlayerResponse;
+import cricket.tournament.simulation.enums.PositionOfResponsibility;
+import cricket.tournament.simulation.enums.TeamEnum;
 import cricket.tournament.simulation.repository.model.Player;
+import cricket.tournament.simulation.repository.model.Team;
 import cricket.tournament.simulation.repository.repository.PlayerRepository;
 import cricket.tournament.simulation.repository.repository.TeamRepository;
 import cricket.tournament.simulation.service.PlayerService;
 import cricket.tournament.simulation.service.converter.PlayerConverters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class PlayerServiceImpl implements PlayerService {
@@ -24,33 +22,34 @@ public class PlayerServiceImpl implements PlayerService {
     TeamRepository teamRepository;
 
     @Override
-    public PlayerResponse getPlayerByShirtId(Long playerShirtId) {
-        Player player = playerRepository.findByPlayerShirtId(playerShirtId);
-        return PlayerConverters.convertPlayerToPlayerResponse(player);
+    public void createPlayer(PlayerRequest playerRequest) {
+        Long teamId = teamRepository.findByTeamCode(TeamEnum.getTeamCodeFromTeamName(playerRequest.getTeamName())).getId();
+        playerRepository.save(PlayerConverters.convertPlayerRequestToPlayer(playerRequest, teamId));
     }
 
     @Override
-    public void createPlayer(PlayerRequest playerRequest) {
-        Long teamId = teamRepository.findByTeamCode(playerRequest.getTeamCode()).getId();
-        playerRepository.save(PlayerConverters.convertPlayerRequestToPlayer(playerRequest,teamId));
+    public PlayerResponse getPlayerByShirtIdAndTeamName(Long playerShirtId, String teamName) {
+        Team team = getTeamFromTeamName(teamName);
+        Player player = playerRepository.findByPlayerShirtIdAndTeamId(playerShirtId, team.getId());
+        return PlayerConverters.convertPlayerToPlayerResponse(player, team.getTeamCode());
     }
 
     @Override
     public PlayerResponse getPlayerByName(String playerName) {
         Player player = playerRepository.findByPlayerName(playerName);
-        return PlayerConverters.convertPlayerToPlayerResponse(player);
+        Long teamCode = teamRepository.findById(player.getTeamId()).get().getTeamCode();
+        return PlayerConverters.convertPlayerToPlayerResponse(player, teamCode);
     }
 
     @Override
-    public PlayerResponse getPlayerByPositionOfResponsibility(String positionOfResponsibility) {
-        Player player = playerRepository.findByPositionOfResponsibility(PositionOfResponsibility.getValue(positionOfResponsibility));
-        return PlayerConverters.convertPlayerToPlayerResponse(player);
+    public PlayerResponse getPlayerByPositionOfResponsibilityAndTeamName(String positionOfResponsibility, String teamName) {
+        Team team = getTeamFromTeamName(teamName);
+        Player player = playerRepository.findByPositionOfResponsibilityAndTeamId(PositionOfResponsibility.getValue(positionOfResponsibility), team.getId());
+        return PlayerConverters.convertPlayerToPlayerResponse(player, team.getTeamCode());
     }
 
-    @Override
-    public List<PlayerResponse> getAllPlayersByPlayerType(String playerType) {
-        List<Player> players = playerRepository.findByPlayerType(PlayerType.getValue(playerType));
-        List<Long> teamIds = players.stream().map(Player::getTeamId).collect(Collectors.toList());
-        return PlayerConverters.convertPlayersToPlayerResponses(players);
+    private Team getTeamFromTeamName(String teamName) {
+        Long teamCode = TeamEnum.getTeamCodeFromTeamName(teamName);
+        return teamRepository.findByTeamCode(teamCode);
     }
 }

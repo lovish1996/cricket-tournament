@@ -1,15 +1,12 @@
 package cricket.tournament.simulation.service.converter;
 
-import cricket.tournament.simulation.enums.PlayerType;
-import cricket.tournament.simulation.enums.PositionOfResponsibility;
-import cricket.tournament.simulation.enums.Team;
 import cricket.tournament.simulation.api.dto.request.PlayerRequest;
 import cricket.tournament.simulation.api.dto.response.PlayerResponse;
+import cricket.tournament.simulation.enums.PlayerType;
+import cricket.tournament.simulation.enums.PositionOfResponsibility;
+import cricket.tournament.simulation.enums.TeamEnum;
 import cricket.tournament.simulation.repository.model.Player;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 public class PlayerConverters {
@@ -20,23 +17,8 @@ public class PlayerConverters {
      * @param player
      * @return playerResponse
      */
-    public static PlayerResponse convertPlayerToPlayerResponse(Player player) {
-        return playerToPlayerResponseConverter(player);
-    }
-
-    /**
-     * Utility method for converting list of Player to list of PlayerResponse
-     *
-     * @param players
-     * @return playerResponses
-     */
-    public static List<PlayerResponse> convertPlayersToPlayerResponses(List<Player> players) {
-        List<PlayerResponse> playerResponses = new ArrayList<>();
-
-        for (Player player : players) {
-            playerResponses.add(playerToPlayerResponseConverter(player));
-        }
-        return playerResponses;
+    public static PlayerResponse convertPlayerToPlayerResponse(Player player, Long teamCode) {
+        return playerToPlayerResponseConverter(player, teamCode);
     }
 
     /**
@@ -45,13 +27,12 @@ public class PlayerConverters {
      * @param player
      * @return playerResponse
      */
-    private static PlayerResponse playerToPlayerResponseConverter(Player player) {
+    private static PlayerResponse playerToPlayerResponseConverter(Player player, Long teamCode) {
         Long playerShirtId = player.getPlayerShirtId();
         String playerName = player.getPlayerName();
         String playerType = player.getPlayerType() == null ? null : player.getPlayerType().getPlayerType();
         String positionOfResponsibility = player.getPositionOfResponsibility() == null ? null : player.getPositionOfResponsibility().getPositionOfResponsibility();
-        assert Team.getValue(player.getTeamId()) != null;
-        String teamName = player.getTeamId() == null ? null : Team.getValue(player.getTeamId()).getTeamName();
+        String teamName = TeamEnum.getTeamNameFromTeamCode(teamCode);
         return new PlayerResponse(playerShirtId, playerName, playerType, positionOfResponsibility, teamName);
     }
 

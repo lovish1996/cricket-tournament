@@ -31,8 +31,8 @@ public class Ranking extends BaseUpdateEntity {
     private Long testRanking;
 
     @Column(name = "odi_ranking")
-    private Long ODIRanking;
+    private Long odiRanking;
 
     @Column(name = "t20_ranking")
-    private Long T20Ranking;
+    private Long t20Ranking;
 }
