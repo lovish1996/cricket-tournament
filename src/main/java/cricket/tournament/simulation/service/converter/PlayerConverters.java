@@ -9,20 +9,24 @@ import java.util.List;
 public class PlayerConverters {
 
     public static PlayerResponse convertPlayerToPlayerResponse(Player player) {
-        return new PlayerResponse(player.getPlayerShirtId(), player.getPlayerName(),
-                player.getPlayerType().getPlayerType(), player.getPositionOfResponsibility().getPositionOfResponsibility(),
-                player.getTeam().getTeamName());
+        return processPlayerClass(player);
     }
 
-    public static List<PlayerResponse> convertPlayersToPlayerResponses(List<Player> players){
-        List<PlayerResponse> playerResponses =  new ArrayList<>();
+    public static List<PlayerResponse> convertPlayersToPlayerResponses(List<Player> players) {
+        List<PlayerResponse> playerResponses = new ArrayList<>();
 
-        for (Player player: players) {
-            PlayerResponse playerResponse = new PlayerResponse(player.getPlayerShirtId(), player.getPlayerName(),
-                    player.getPlayerType().getPlayerType(), player.getPositionOfResponsibility().getPositionOfResponsibility(),
-                    player.getTeam().getTeamName());
-            playerResponses.add(playerResponse);
+        for (Player player : players) {
+            playerResponses.add(processPlayerClass(player));
         }
         return playerResponses;
+    }
+
+    private static PlayerResponse processPlayerClass(Player player) {
+        Long playerShirtId = player.getPlayerShirtId();
+        String playerName = player.getPlayerName();
+        String playerType = player.getPlayerType() == null ? null : player.getPlayerType().getPlayerType();
+        String positionOfResponsibility = player.getPositionOfResponsibility() == null ? null : player.getPositionOfResponsibility().getPositionOfResponsibility();
+        String teamName = player.getTeam() == null ? null : player.getTeam().getTeamName();
+        return new PlayerResponse(playerShirtId, playerName, playerType, positionOfResponsibility, teamName);
     }
 }
