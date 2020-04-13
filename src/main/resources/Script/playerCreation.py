@@ -1,8 +1,7 @@
-# Run the commans "python3 playerCreation.py <DataFileName>" from the project Script directory for running the script
+# Run the command "python3 src/main/resources/Script/playerCreation.py <DataFileName>" from the project root directory for running the script
 import os
 import sys
 import pandas as pd
-import numpy as np
 import requests
 import json
 
@@ -16,7 +15,7 @@ def isNaN(num):
 
 def generate(fileName):
 
-    pathForData = fileName
+    pathForData = "src/main/resources/Data/"+fileName
     playerData = pd.read_excel(pathForData)
 
     # API to hit the post request
