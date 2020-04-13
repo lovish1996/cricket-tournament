@@ -2,7 +2,6 @@ package cricket.tournament.simulation.repository.model;
 
 import cricket.tournament.simulation.enums.PlayerType;
 import cricket.tournament.simulation.enums.PositionOfResponsibility;
-import cricket.tournament.simulation.enums.Team;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,7 +16,11 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "player_details",
-        uniqueConstraints = {@UniqueConstraint(columnNames = {"player_shirt_id"})}
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"player_shirt_id", "team_id"})}
+        ,
+        indexes = {
+                @Index(name = "positionOfResponsibilityIdx", columnList = "position_of_responsibility")
+        }
 )
 public class Player extends BaseUpdateEntity {
 
@@ -38,7 +41,6 @@ public class Player extends BaseUpdateEntity {
     @Enumerated(EnumType.STRING)
     private PositionOfResponsibility positionOfResponsibility;
 
-    @Column(name = "team_name")
-    @Enumerated(EnumType.STRING)
-    private Team team;
+    @Column(name = "team_id")
+    private Long teamId;
 }
