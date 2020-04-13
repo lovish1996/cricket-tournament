@@ -1,8 +1,7 @@
+# Run the commans "python3 playerCreation.py <DataFileName>" from the project root directory for running the script
 import os
 import sys
 import pandas as pd
-# Run the commans "python3 playerCreation.py <DataFileName>" from the project root directory for running the script
-
 import numpy as np
 import requests
 import json
