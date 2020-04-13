@@ -1,4 +1,4 @@
-# Run the commans "python3 playerCreation.py <DataFileName>" from the project root directory for running the script
+# Run the commans "python3 playerCreation.py <DataFileName>" from the project Script directory for running the script
 import os
 import sys
 import pandas as pd
