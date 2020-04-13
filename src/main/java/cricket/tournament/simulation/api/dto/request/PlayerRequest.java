@@ -1,4 +1,4 @@
-package cricket.tournament.simulation.repository.dto.request;
+package cricket.tournament.simulation.api.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class PlayerRequest extends BaseRequestDto{
+public class PlayerRequest extends BaseRequestDto {
     @NotNull
     private Long playerShirtId;
 
@@ -24,5 +24,5 @@ public class PlayerRequest extends BaseRequestDto{
     private String positionOfResponsibility;
 
     @NotNull
-    private String team;
+    private String teamName;
 }

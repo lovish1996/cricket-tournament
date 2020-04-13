@@ -1,4 +1,4 @@
-package cricket.tournament.simulation.repository.dto.response;
+package cricket.tournament.simulation.api.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -6,6 +6,7 @@ import lombok.Getter;
 
 @Getter
 public class PlayerResponse {
+
     private Long playerShirtId;
     private String playerName;
     private String playerType;
