@@ -2,23 +2,26 @@ package cricket.tournament.simulation.service.impl;
 
 import cricket.tournament.simulation.enums.PlayerType;
 import cricket.tournament.simulation.enums.PositionOfResponsibility;
-import cricket.tournament.simulation.enums.Team;
-import cricket.tournament.simulation.repository.dto.request.PlayerRequest;
-import cricket.tournament.simulation.repository.dto.response.PlayerResponse;
+import cricket.tournament.simulation.api.dto.request.PlayerRequest;
+import cricket.tournament.simulation.api.dto.response.PlayerResponse;
 import cricket.tournament.simulation.repository.model.Player;
 import cricket.tournament.simulation.repository.repository.PlayerRepository;
+import cricket.tournament.simulation.repository.repository.TeamRepository;
 import cricket.tournament.simulation.service.PlayerService;
 import cricket.tournament.simulation.service.converter.PlayerConverters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PlayerServiceImpl implements PlayerService {
 
     @Autowired
     PlayerRepository playerRepository;
+    @Autowired
+    TeamRepository teamRepository;
 
     @Override
     public PlayerResponse getPlayerByShirtId(Long playerShirtId) {
@@ -28,10 +31,8 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public void createPlayer(PlayerRequest playerRequest) {
-        Player player = new Player(playerRequest.getPlayerShirtId(), playerRequest.getPlayerName(),
-                PlayerType.getValue(playerRequest.getPlayerType()), PositionOfResponsibility.getValue(playerRequest.getPositionOfResponsibility()),
-                Team.getValue(playerRequest.getTeam()));
-        playerRepository.save(player);
+        Long teamId = teamRepository.findByTeamCode(playerRequest.getTeamCode()).getId();
+        playerRepository.save(PlayerConverters.convertPlayerRequestToPlayer(playerRequest,teamId));
     }
 
     @Override
@@ -49,6 +50,7 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public List<PlayerResponse> getAllPlayersByPlayerType(String playerType) {
         List<Player> players = playerRepository.findByPlayerType(PlayerType.getValue(playerType));
+        List<Long> teamIds = players.stream().map(Player::getTeamId).collect(Collectors.toList());
         return PlayerConverters.convertPlayersToPlayerResponses(players);
     }
 }

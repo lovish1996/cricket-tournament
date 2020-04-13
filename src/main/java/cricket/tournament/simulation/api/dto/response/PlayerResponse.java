@@ -1,4 +1,4 @@
-package cricket.tournament.simulation.repository.dto.response;
+package cricket.tournament.simulation.api.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

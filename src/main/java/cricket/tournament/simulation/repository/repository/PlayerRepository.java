@@ -4,7 +4,6 @@ import cricket.tournament.simulation.enums.PlayerType;
 import cricket.tournament.simulation.enums.PositionOfResponsibility;
 import cricket.tournament.simulation.repository.model.Player;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 

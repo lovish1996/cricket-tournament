@@ -1,7 +1,7 @@
 package cricket.tournament.simulation.api.controller;
 
-import cricket.tournament.simulation.repository.dto.request.PlayerRequest;
-import cricket.tournament.simulation.repository.dto.response.PlayerResponse;
+import cricket.tournament.simulation.api.dto.request.PlayerRequest;
+import cricket.tournament.simulation.api.dto.response.PlayerResponse;
 import cricket.tournament.simulation.service.PlayerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

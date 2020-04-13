@@ -1,7 +1,7 @@
 package cricket.tournament.simulation.service;
 
-import cricket.tournament.simulation.repository.dto.request.PlayerRequest;
-import cricket.tournament.simulation.repository.dto.response.PlayerResponse;
+import cricket.tournament.simulation.api.dto.request.PlayerRequest;
+import cricket.tournament.simulation.api.dto.response.PlayerResponse;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ public interface PlayerService {
 
     PlayerResponse getPlayerByShirtId(Long playerShirtId);
 
-    void createPlayer(PlayerRequest playerrequest);
+    void createPlayer(PlayerRequest playerRequest);
 
     PlayerResponse getPlayerByName(String playerName);
 
