@@ -28,5 +28,13 @@ out/
 /nbdist/
 /.nb-gradle/
 
+#Directories
+*.idea*
+.gradle
+
+
+#locally-modified files
+src/main/resources/application.properties
+
 ### VS Code ###
 .vscode/
