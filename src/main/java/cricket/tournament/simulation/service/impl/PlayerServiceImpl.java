@@ -58,12 +58,12 @@ public class PlayerServiceImpl implements PlayerService {
         }
         Team team = getTeamFromTeamName(teamName);
         List<Player> players = playerRepository.findAll();
-        List<Player> playersPorAndTeam = players.stream()
+        List<Player> playersPORAndTeam = players.stream()
                 .filter(player -> player.getTeamId().equals(team.getId()))
                 .filter(player -> player.getPositionOfResponsibility() != null)
                 .filter(player -> player.getPositionOfResponsibility().equals(PositionOfResponsibility.getValue(positionOfResponsibility)))
                 .collect(Collectors.toList());
-        return PlayerConverters.convertPlayersToPlayerResponses(playersPorAndTeam, team.getTeamCode());
+        return PlayerConverters.convertPlayersToPlayerResponses(playersPORAndTeam, team.getTeamCode());
     }
 
     @Override
@@ -97,6 +97,5 @@ public class PlayerServiceImpl implements PlayerService {
         Long teamCode = TeamEnum.getTeamCodeFromTeamName(teamName);
         return teamRepository.findByTeamCode(teamCode);
     }
-
 
 }
