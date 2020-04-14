@@ -1,6 +1,5 @@
 package cricket.tournament.simulation.api.controller;
 
-import cricket.tournament.simulation.api.dto.request.RankingRequestResponse;
 import cricket.tournament.simulation.api.dto.request.TeamRequest;
 import cricket.tournament.simulation.api.dto.response.TeamResponse;
 import cricket.tournament.simulation.service.TeamService;
@@ -26,5 +25,10 @@ public class TeamController {
     @GetMapping("/byTeamName")
     public TeamResponse getTeamByTeamName(@RequestParam String teamName) {
         return teamService.getTeamByTeamName(teamName);
+    }
+
+    @GetMapping("/byPlayerName")
+    public TeamResponse getTeamByPlayerName(@RequestParam String playerName) {
+        return teamService.getTeamByPlayerName(playerName);
     }
 }

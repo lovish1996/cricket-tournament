@@ -1,13 +1,13 @@
 package cricket.tournament.simulation.api.controller;
 
 import cricket.tournament.simulation.api.dto.request.RankingRequestResponse;
+import cricket.tournament.simulation.api.dto.request.TeamRequest;
 import cricket.tournament.simulation.service.RankingService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/rankings")
@@ -16,6 +16,11 @@ public class RankingController {
 
     @Autowired
     RankingService rankingService;
+
+    @RequestMapping(value = "/createRanking", method = RequestMethod.POST)
+    public void createTeam(@Valid @RequestBody TeamRequest teamRequest) {
+        rankingService.createRanking(teamRequest);
+    }
 
     @GetMapping("/byTeamName")
     public RankingRequestResponse getRankingByTeamName(@RequestParam String teamName) {
