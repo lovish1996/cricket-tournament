@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/players")
@@ -22,19 +23,28 @@ public class PlayerController {
         playerService.createPlayer(playerRequest);
     }
 
-    @GetMapping("/byShirtIdAndTeamName")
+    @GetMapping("/playerByShirtIdAndTeamName")
     public PlayerResponse getPlayerByShirtIdAndTeamName(@RequestParam Long playerShirtId, @RequestParam String teamName) {
         return playerService.getPlayerByShirtIdAndTeamName(playerShirtId, teamName);
     }
 
-    @GetMapping("/byPlayerName")
+    @GetMapping("/playerByPlayerName")
     public PlayerResponse getPlayerByName(@RequestParam String playerName) {
         return playerService.getPlayerByName(playerName);
     }
 
-    @GetMapping("/byPositionOfResponsibilityAndTeamName")
-    public PlayerResponse getPlayerByPositionOfResponsibilityAndTeamName(@RequestParam String positionOfResponsibility, @RequestParam String teamName) {
-        return playerService.getPlayerByPositionOfResponsibilityAndTeamName(positionOfResponsibility, teamName);
+    @GetMapping("/playersByPositionOfResponsibilityAndTeamName")
+    public List<PlayerResponse> getPlayerByPositionOfResponsibilityAndTeamName(@RequestParam String positionOfResponsibility, @RequestParam String teamName) {
+        return playerService.getPlayersByPositionOfResponsibilityAndTeamName(positionOfResponsibility, teamName);
     }
 
+    @GetMapping("/playersByTeamName")
+    public List<PlayerResponse> getPlayersByTeamName(@RequestParam String teamName) {
+        return playerService.getPlayersByTeamName(teamName);
+    }
+
+    @GetMapping("/playersByPlayerTypeAndTeamName")
+    public List<PlayerResponse> getPlayersByPlayerTypeAndTeamName(@RequestParam String playerType, @RequestParam String teamName) {
+        return playerService.getPlayersByPlayerTypeAndTeamName(playerType, teamName);
+    }
 }

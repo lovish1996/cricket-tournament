@@ -3,6 +3,8 @@ package cricket.tournament.simulation.service;
 import cricket.tournament.simulation.api.dto.request.PlayerRequest;
 import cricket.tournament.simulation.api.dto.response.PlayerResponse;
 
+import java.util.List;
+
 public interface PlayerService {
 
     void createPlayer(PlayerRequest playerRequest);
@@ -11,6 +13,9 @@ public interface PlayerService {
 
     PlayerResponse getPlayerByName(String playerName);
 
-    PlayerResponse getPlayerByPositionOfResponsibilityAndTeamName(String positionOfResponsibility, String teamName);
+    List<PlayerResponse> getPlayersByPositionOfResponsibilityAndTeamName(String positionOfResponsibility, String teamName);
 
+    List<PlayerResponse> getPlayersByTeamName(String teamName);
+
+    List<PlayerResponse> getPlayersByPlayerTypeAndTeamName(String playerType, String teamName);
 }

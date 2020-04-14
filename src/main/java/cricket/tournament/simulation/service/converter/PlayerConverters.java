@@ -8,6 +8,9 @@ import cricket.tournament.simulation.enums.TeamEnum;
 import cricket.tournament.simulation.repository.model.Player;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class PlayerConverters {
 
@@ -15,16 +18,18 @@ public class PlayerConverters {
      * Utility method for converting Player to PlayerResponse
      *
      * @param player
+     * @param teamCode
      * @return playerResponse
      */
     public static PlayerResponse convertPlayerToPlayerResponse(Player player, Long teamCode) {
         return playerToPlayerResponseConverter(player, teamCode);
     }
 
+
     /**
      * Converter method for converting Player to PlayerResponse
-     *
      * @param player
+     * @param teamCode
      * @return playerResponse
      */
     private static PlayerResponse playerToPlayerResponseConverter(Player player, Long teamCode) {
@@ -34,6 +39,26 @@ public class PlayerConverters {
         String positionOfResponsibility = player.getPositionOfResponsibility() == null ? null : player.getPositionOfResponsibility().getPositionOfResponsibility();
         String teamName = TeamEnum.getTeamNameFromTeamCode(teamCode);
         return new PlayerResponse(playerShirtId, playerName, playerType, positionOfResponsibility, teamName);
+    }
+
+    /**
+     * Utility method for converting List of Player to List of PlayerResponse
+     * @param players
+     * @param teamCode
+     * @return playerResponses
+     */
+    public static List<PlayerResponse> convertPlayersToPlayerResponses(List<Player> players, Long teamCode) {
+        return playersToPlayerResponsesConverter(players,teamCode);
+    }
+
+    /**
+     * Converter method for converting List of Player to List of PlayerResponse
+     * @param players
+     * @param teamCode
+     * @return  playerResponses
+     */
+    private static List<PlayerResponse> playersToPlayerResponsesConverter(List<Player> players, Long teamCode) {
+        return players.stream().map(player -> playerToPlayerResponseConverter(player,teamCode)).collect(Collectors.toList());
     }
 
     /**
