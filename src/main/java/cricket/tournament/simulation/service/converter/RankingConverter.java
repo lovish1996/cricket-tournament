@@ -14,7 +14,7 @@ public class RankingConverter {
         return new Ranking(teamId, rankingRequestResponse.getTestRanking(), rankingRequestResponse.getOdiRanking(), rankingRequestResponse.getT20Ranking());
     }
 
-    public static Ranking updateRankingFromRankingRequestResponse(Ranking ranking, RankingRequestResponse rankingRequestResponse){
+    public static Ranking updateRankingFromRankingRequestResponse(Ranking ranking, RankingRequestResponse rankingRequestResponse) {
         ranking.setTestRanking(rankingRequestResponse.getTestRanking());
         ranking.setOdiRanking(rankingRequestResponse.getOdiRanking());
         ranking.setT20Ranking(rankingRequestResponse.getT20Ranking());

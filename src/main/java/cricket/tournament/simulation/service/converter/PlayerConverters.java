@@ -28,11 +28,11 @@ public class PlayerConverters {
     }
 
     public static List<PlayerResponse> convertPlayersToPlayerResponses(List<Player> players, Long teamCode) {
-        return playersToPlayerResponsesConverter(players,teamCode);
+        return playersToPlayerResponsesConverter(players, teamCode);
     }
 
     private static List<PlayerResponse> playersToPlayerResponsesConverter(List<Player> players, Long teamCode) {
-        return players.stream().map(player -> playerToPlayerResponseConverter(player,teamCode)).collect(Collectors.toList());
+        return players.stream().map(player -> playerToPlayerResponseConverter(player, teamCode)).collect(Collectors.toList());
     }
 
     public static Player convertPlayerRequestToPlayer(PlayerRequest playerRequest, Long teamId) {

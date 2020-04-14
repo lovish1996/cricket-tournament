@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "team_details",
         uniqueConstraints = {@UniqueConstraint(columnNames = {"team_code"})}
 )
-public class Team extends BaseUpdateEntity {
+public class Team extends BaseUpdateEntity implements Comparable<Team> {
 
     @NotNull
     @Column(name = "team_code")
@@ -32,4 +32,8 @@ public class Team extends BaseUpdateEntity {
     @Column(name = "ranking_id")
     private Long rankingId;
 
+    @Override
+    public int compareTo(Team o) {
+        return this.getTeamCode().compareTo(o.getTeamCode());
+    }
 }

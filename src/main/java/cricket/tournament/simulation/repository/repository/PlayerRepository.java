@@ -1,6 +1,5 @@
 package cricket.tournament.simulation.repository.repository;
 
-import cricket.tournament.simulation.enums.PositionOfResponsibility;
 import cricket.tournament.simulation.repository.model.Player;
 import org.springframework.data.repository.CrudRepository;
 
