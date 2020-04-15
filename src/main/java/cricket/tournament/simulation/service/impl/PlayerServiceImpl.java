@@ -4,6 +4,7 @@ import cricket.tournament.simulation.api.dto.request.PlayerRequest;
 import cricket.tournament.simulation.api.dto.response.PlayerResponse;
 import cricket.tournament.simulation.enums.PositionOfResponsibility;
 import cricket.tournament.simulation.enums.TeamEnum;
+import cricket.tournament.simulation.exception.error.EntityNotFoundException;
 import cricket.tournament.simulation.repository.model.Player;
 import cricket.tournament.simulation.repository.model.Team;
 import cricket.tournament.simulation.repository.repository.PlayerRepository;
@@ -35,18 +36,26 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public PlayerResponse getPlayerByShirtIdAndTeamName(Long playerShirtId, String teamName) {
+
+    public PlayerResponse getPlayerByShirtIdAndTeamName(Long playerShirtId, String teamName) throws EntityNotFoundException {
         if (!PlayerValidation.validateTeamName(teamName)) {
             return null;
         }
         Team team = getTeamFromTeamName(teamName);
         Player player = playerRepository.findByPlayerShirtIdAndTeamId(playerShirtId, team.getId());
+        if (player == null) {
+            throw new EntityNotFoundException(Player.class);
+        }
         return PlayerConverters.convertPlayerToPlayerResponse(player, team.getTeamCode());
+
     }
 
     @Override
-    public PlayerResponse getPlayerByName(String playerName) {
+    public PlayerResponse getPlayerByName(String playerName) throws EntityNotFoundException {
         Player player = playerRepository.findByPlayerName(playerName);
+        if (player == null) {
+            throw new EntityNotFoundException(Player.class);
+        }
         Long teamCode = teamRepository.findById(player.getTeamId()).get().getTeamCode();
         return PlayerConverters.convertPlayerToPlayerResponse(player, teamCode);
     }
@@ -95,6 +104,7 @@ public class PlayerServiceImpl implements PlayerService {
 
     private Team getTeamFromTeamName(String teamName) {
         Long teamCode = TeamEnum.getTeamCodeFromTeamName(teamName);
+
         return teamRepository.findByTeamCode(teamCode);
     }
 

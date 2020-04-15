@@ -4,7 +4,11 @@ import cricket.tournament.simulation.api.dto.request.RankingRequestResponse;
 import cricket.tournament.simulation.api.dto.request.TeamRequest;
 import cricket.tournament.simulation.api.dto.response.TeamResponse;
 import cricket.tournament.simulation.enums.TeamEnum;
+
+import cricket.tournament.simulation.exception.error.EntityNotFoundException;
+
 import cricket.tournament.simulation.repository.model.Player;
+
 import cricket.tournament.simulation.repository.model.Ranking;
 import cricket.tournament.simulation.repository.model.Team;
 import cricket.tournament.simulation.repository.repository.PlayerRepository;
@@ -50,6 +54,11 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     public TeamResponse getTeamByTeamName(String teamName) {
+
+        TeamEnum team = TeamEnum.getValue(teamName);
+        if (team == null)
+            throw new EntityNotFoundException(Team.class);
+
         Ranking ranking = converters.getRankingFromTeamName(teamName);
         RankingRequestResponse rankingRequestResponse = RankingConverter.convertRankingToRankingRequestResponse(ranking);
         return new TeamResponse(teamName, rankingRequestResponse);

@@ -3,6 +3,7 @@ package cricket.tournament.simulation.api.controller;
 import cricket.tournament.simulation.CricketTournamentApplication;
 import cricket.tournament.simulation.api.dto.request.PlayerRequest;
 import cricket.tournament.simulation.api.dto.response.PlayerResponse;
+import cricket.tournament.simulation.exception.error.EntityNotFoundException;
 import cricket.tournament.simulation.service.PlayerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,14 +31,22 @@ public class PlayerController {
         playerService.createPlayer(playerRequest);
     }
 
+    @GetMapping("/byShirtIdAndTeamName")
+    public PlayerResponse getPlayerByShirtIdAndTeamName(@Valid @RequestParam Long playerShirtId, @Valid @RequestParam String teamName) throws EntityNotFoundException {
+        return playerService.getPlayerByShirtIdAndTeamName(playerShirtId, teamName);
+    }
+
+    @GetMapping("/byPlayerName")
+    public PlayerResponse getPlayerByName(@RequestParam String playerName) throws EntityNotFoundException {
+
     @GetMapping("/playerByShirtIdAndTeamName")
-    public PlayerResponse getPlayerByShirtIdAndTeamName(@RequestParam Long playerShirtId, @RequestParam String teamName) {
+    public PlayerResponse getPlayerByShirtIdAndTeamName(@RequestParam Long playerShirtId, @RequestParam String teamName) throws EntityNotFoundException{
         CricketTournamentApplication.LOGGER.info("Calling API getPlayerByShirtIdAndTeamName(). playerShirtId : {}, teamName : {}", playerShirtId, teamName);
         return playerService.getPlayerByShirtIdAndTeamName(playerShirtId, teamName);
     }
 
     @GetMapping("/playerByPlayerName")
-    public PlayerResponse getPlayerByName(@RequestParam String playerName) {
+    public PlayerResponse getPlayerByName(@RequestParam String playerName) throws EntityNotFoundException{
         CricketTournamentApplication.LOGGER.info("Calling API getPlayerByName(). playerName : {}", playerName);
         return playerService.getPlayerByName(playerName);
     }
