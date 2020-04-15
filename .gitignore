@@ -31,7 +31,7 @@ out/
 #Directories
 *.idea*
 .gradle
-
+*.log
 
 #locally-modified files
 src/main/resources/application.properties

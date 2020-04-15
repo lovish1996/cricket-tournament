@@ -13,7 +13,7 @@ public class TeamResponse {
 
     @JsonCreator
     public TeamResponse(@JsonProperty("teamName") String teamName,
-                        @JsonProperty("rankings") RankingRequestResponse rankingRequestResponse){
+                        @JsonProperty("rankings") RankingRequestResponse rankingRequestResponse) {
         this.teamName = teamName;
         this.rankingRequestResponse = rankingRequestResponse;
     }

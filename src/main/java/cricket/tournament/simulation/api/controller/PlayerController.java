@@ -1,5 +1,6 @@
 package cricket.tournament.simulation.api.controller;
 
+import cricket.tournament.simulation.CricketTournamentApplication;
 import cricket.tournament.simulation.api.dto.request.PlayerRequest;
 import cricket.tournament.simulation.api.dto.response.PlayerResponse;
 import cricket.tournament.simulation.exception.error.EntityNotFoundException;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/players")
@@ -25,22 +27,37 @@ public class PlayerController {
 
     @RequestMapping(value = "/createPlayer", method = RequestMethod.POST)
     public void createPlayer(@Valid @RequestBody PlayerRequest playerRequest) {
+        CricketTournamentApplication.LOGGER.info("Calling API createPlayer(). playerRequest : {}", playerRequest);
         playerService.createPlayer(playerRequest);
     }
 
-    @GetMapping("/byShirtIdAndTeamName")
-    public PlayerResponse getPlayerByShirtIdAndTeamName(@Valid @RequestParam Long playerShirtId, @Valid @RequestParam String teamName) throws EntityNotFoundException {
+    @GetMapping("/playerByShirtIdAndTeamName")
+    public PlayerResponse getPlayerByShirtIdAndTeamName(@Valid @RequestParam Long playerShirtId, @Valid @RequestParam String teamName) throws EntityNotFoundException{
+        CricketTournamentApplication.LOGGER.info("Calling API getPlayerByShirtIdAndTeamName(). playerShirtId : {}, teamName : {}", playerShirtId, teamName);
         return playerService.getPlayerByShirtIdAndTeamName(playerShirtId, teamName);
     }
 
-    @GetMapping("/byPlayerName")
-    public PlayerResponse getPlayerByName(@RequestParam String playerName) throws EntityNotFoundException {
+    @GetMapping("/playerByPlayerName")
+    public PlayerResponse getPlayerByName(@RequestParam String playerName) {
+        CricketTournamentApplication.LOGGER.info("Calling API getPlayerByName(). playerName : {}", playerName);
         return playerService.getPlayerByName(playerName);
     }
 
-    @GetMapping("/byPositionOfResponsibilityAndTeamName")
-    public PlayerResponse getPlayerByPositionOfResponsibilityAndTeamName(@RequestParam String positionOfResponsibility, @RequestParam String teamName) {
-        return playerService.getPlayerByPositionOfResponsibilityAndTeamName(positionOfResponsibility, teamName);
+    @GetMapping("/playersByPositionOfResponsibilityAndTeamName")
+    public List<PlayerResponse> getPlayerByPositionOfResponsibilityAndTeamName(@RequestParam String positionOfResponsibility, @RequestParam String teamName) {
+        CricketTournamentApplication.LOGGER.info("Calling API getPlayerByPositionOfResponsibilityAndTeamName(). positionOfResponsibility : {}, teamName : {}", positionOfResponsibility, teamName);
+        return playerService.getPlayersByPositionOfResponsibilityAndTeamName(positionOfResponsibility, teamName);
     }
 
+    @GetMapping("/playersByTeamName")
+    public List<PlayerResponse> getPlayersByTeamName(@RequestParam String teamName) {
+        CricketTournamentApplication.LOGGER.info("Calling API getPlayersByTeamName(). teamName :{}", teamName);
+        return playerService.getPlayersByTeamName(teamName);
+    }
+
+    @GetMapping("/playersByPlayerTypeAndTeamName")
+    public List<PlayerResponse> getPlayersByPlayerTypeAndTeamName(@RequestParam String playerType, @RequestParam String teamName) {
+        CricketTournamentApplication.LOGGER.info("Calling API getPlayersByPlayerTypeAndTeamName(). playerType : {}, teamName : {}", playerType, teamName);
+        return playerService.getPlayersByPlayerTypeAndTeamName(playerType, teamName);
+    }
 }
