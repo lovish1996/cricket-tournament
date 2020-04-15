@@ -33,23 +33,19 @@ public class CustomErrorResponse extends BaseErrorResponse {
     }
 
     public CustomErrorResponse(HttpStatus status, String message) {
-        this();
-        this.status = status;
+        this(status);
         this.message = message;
     }
 
     public CustomErrorResponse(HttpStatus status, Throwable ex) {
-        this();
-        this.status = status;
+        this(status);
         this.message = "Unexpected Error";
         this.debugMessage = ex.getLocalizedMessage();
     }
 
 
     public CustomErrorResponse(HttpStatus status, String message, Throwable ex) {
-        this();
-        this.status = status;
-        this.message = message;
+        this(status, message);
         this.debugMessage = ex.getLocalizedMessage();
     }
 
