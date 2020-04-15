@@ -38,7 +38,7 @@ public class PlayerController {
     }
 
     @GetMapping("/playerByPlayerName")
-    public PlayerResponse getPlayerByName(@RequestParam String playerName) {
+    public PlayerResponse getPlayerByName(@RequestParam String playerName) throws EntityNotFoundException{
         CricketTournamentApplication.LOGGER.info("Calling API getPlayerByName(). playerName : {}", playerName);
         return playerService.getPlayerByName(playerName);
     }

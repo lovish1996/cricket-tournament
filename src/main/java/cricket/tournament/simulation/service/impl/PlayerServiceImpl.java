@@ -36,7 +36,8 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public PlayerResponse getPlayerByShirtIdAndTeamName(Long playerShirtId, String teamName) throws EntityNotFoundException{
+
+    public PlayerResponse getPlayerByShirtIdAndTeamName(Long playerShirtId, String teamName) throws EntityNotFoundException {
         if (!PlayerValidation.validateTeamName(teamName)) {
             return null;
         }
