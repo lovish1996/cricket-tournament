@@ -32,7 +32,8 @@ public class PlayerController {
     }
 
     @GetMapping("/playerByShirtIdAndTeamName")
-    public PlayerResponse getPlayerByShirtIdAndTeamName(@RequestParam Long playerShirtId, @RequestParam String teamName) throws EntityNotFoundException {
+
+    public PlayerResponse getPlayerByShirtIdAndTeamName(@Valid @RequestParam Long playerShirtId, @Valid @RequestParam String teamName) throws EntityNotFoundException{
         CricketTournamentApplication.LOGGER.info("Calling API getPlayerByShirtIdAndTeamName(). playerShirtId : {}, teamName : {}", playerShirtId, teamName);
         return playerService.getPlayerByShirtIdAndTeamName(playerShirtId, teamName);
     }

@@ -47,7 +47,6 @@ public class PlayerServiceImpl implements PlayerService {
             throw new EntityNotFoundException(Player.class);
         }
         return PlayerConverters.convertPlayerToPlayerResponse(player, team.getTeamCode());
-
     }
 
     @Override
@@ -104,7 +103,6 @@ public class PlayerServiceImpl implements PlayerService {
 
     private Team getTeamFromTeamName(String teamName) {
         Long teamCode = TeamEnum.getTeamCodeFromTeamName(teamName);
-
         return teamRepository.findByTeamCode(teamCode);
     }
 
