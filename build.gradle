@@ -50,6 +50,7 @@ dependencies {
 //    testImplementation 'com.unboundid:unboundid-ldapsdk'
 //    testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
 //    testImplementation 'org.springframework.kafka:spring-kafka-test'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-logging', version: '2.2.6.RELEASE'
 }
 
 test {
