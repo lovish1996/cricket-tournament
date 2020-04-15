@@ -1,8 +1,7 @@
-# Run the command "python3 src/main/resources/Script/playerCreation.py <DataFileName>" from the project root directory for running the script
+# Run the command `python3 src/main/resources/Script/playerCreation.py <DataFileName>` from the project root directory for running the script
 import os
 import sys
 import pandas as pd
-import requests
 import json
 
 
