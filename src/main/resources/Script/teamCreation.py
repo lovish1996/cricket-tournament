@@ -26,8 +26,6 @@ def generate(fileName):
         odiRanking = int(teamData.iloc[ind,2])
         t20Ranking = int(teamData.iloc[ind,3])
 
-        json_str={}
-
         json_str = {
                         "teamName" : teamName,
                         "rankingRequestResponse" : {
