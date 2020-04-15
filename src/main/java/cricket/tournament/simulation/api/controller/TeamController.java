@@ -1,5 +1,6 @@
 package cricket.tournament.simulation.api.controller;
 
+import cricket.tournament.simulation.CricketTournamentApplication;
 import cricket.tournament.simulation.api.dto.request.TeamRequest;
 import cricket.tournament.simulation.api.dto.response.TeamResponse;
 import cricket.tournament.simulation.service.TeamService;
@@ -24,16 +25,19 @@ public class TeamController {
 
     @RequestMapping(value = "/createTeam", method = RequestMethod.POST)
     public void createTeam(@Valid @RequestBody TeamRequest teamRequest) {
+        CricketTournamentApplication.LOGGER.info("Calling API createTeam(). teamRequest : {}", teamRequest);
         teamService.createTeam(teamRequest);
     }
 
     @GetMapping("/byTeamName")
     public TeamResponse getTeamByTeamName(@RequestParam String teamName) {
+        CricketTournamentApplication.LOGGER.info("Calling API getTeamByTeamName(). teamName : {}", teamName);
         return teamService.getTeamByTeamName(teamName);
     }
 
     @GetMapping("/byPlayerName")
     public TeamResponse getTeamByPlayerName(@RequestParam String playerName) {
+        CricketTournamentApplication.LOGGER.info("Calling API getTeamByPlayerName(). playerName : {}", playerName);
         return teamService.getTeamByPlayerName(playerName);
     }
 }

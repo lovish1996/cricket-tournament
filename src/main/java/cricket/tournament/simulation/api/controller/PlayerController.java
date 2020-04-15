@@ -1,5 +1,6 @@
 package cricket.tournament.simulation.api.controller;
 
+import cricket.tournament.simulation.CricketTournamentApplication;
 import cricket.tournament.simulation.api.dto.request.PlayerRequest;
 import cricket.tournament.simulation.api.dto.response.PlayerResponse;
 import cricket.tournament.simulation.service.PlayerService;
@@ -25,31 +26,37 @@ public class PlayerController {
 
     @RequestMapping(value = "/createPlayer", method = RequestMethod.POST)
     public void createPlayer(@Valid @RequestBody PlayerRequest playerRequest) {
+        CricketTournamentApplication.LOGGER.info("Calling API createPlayer(). playerRequest : {}", playerRequest);
         playerService.createPlayer(playerRequest);
     }
 
     @GetMapping("/playerByShirtIdAndTeamName")
     public PlayerResponse getPlayerByShirtIdAndTeamName(@RequestParam Long playerShirtId, @RequestParam String teamName) {
+        CricketTournamentApplication.LOGGER.info("Calling API getPlayerByShirtIdAndTeamName(). playerShirtId : {}, teamName : {}", playerShirtId, teamName);
         return playerService.getPlayerByShirtIdAndTeamName(playerShirtId, teamName);
     }
 
     @GetMapping("/playerByPlayerName")
     public PlayerResponse getPlayerByName(@RequestParam String playerName) {
+        CricketTournamentApplication.LOGGER.info("Calling API getPlayerByName(). playerName : {}", playerName);
         return playerService.getPlayerByName(playerName);
     }
 
     @GetMapping("/playersByPositionOfResponsibilityAndTeamName")
     public List<PlayerResponse> getPlayerByPositionOfResponsibilityAndTeamName(@RequestParam String positionOfResponsibility, @RequestParam String teamName) {
+        CricketTournamentApplication.LOGGER.info("Calling API getPlayerByPositionOfResponsibilityAndTeamName(). positionOfResponsibility : {}, teamName : {}", positionOfResponsibility, teamName);
         return playerService.getPlayersByPositionOfResponsibilityAndTeamName(positionOfResponsibility, teamName);
     }
 
     @GetMapping("/playersByTeamName")
     public List<PlayerResponse> getPlayersByTeamName(@RequestParam String teamName) {
+        CricketTournamentApplication.LOGGER.info("Calling API getPlayersByTeamName(). teamName :{}", teamName);
         return playerService.getPlayersByTeamName(teamName);
     }
 
     @GetMapping("/playersByPlayerTypeAndTeamName")
     public List<PlayerResponse> getPlayersByPlayerTypeAndTeamName(@RequestParam String playerType, @RequestParam String teamName) {
+        CricketTournamentApplication.LOGGER.info("Calling API getPlayersByPlayerTypeAndTeamName(). playerType : {}, teamName : {}", playerType, teamName);
         return playerService.getPlayersByPlayerTypeAndTeamName(playerType, teamName);
     }
 }
