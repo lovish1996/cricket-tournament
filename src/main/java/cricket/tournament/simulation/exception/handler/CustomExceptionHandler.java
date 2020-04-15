@@ -4,6 +4,7 @@ import cricket.tournament.simulation.enums.ErrorCode;
 import cricket.tournament.simulation.exception.ErrorResponse.CustomErrorResponse;
 import cricket.tournament.simulation.exception.error.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -37,7 +38,6 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         CustomErrorResponse errorResponse = new CustomErrorResponse(HttpStatus.BAD_REQUEST);
-        errorResponse.setMessage("df");
         return buildErrorResponse(errorResponse);
     }
 
@@ -48,7 +48,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<Object> handleDataIntegrityViolation(DataIntegrityViolationException ex) {
-        if(ex.getCause() instanceof org.hibernate.exception.ConstraintViolationException){
+        if(ex.getCause() instanceof ConstraintViolationException){
             return buildErrorResponse(new CustomErrorResponse(HttpStatus.CONFLICT, ErrorCode.DB_CONSTRAINT_VIOLATION.getErrorMessage(), ex.getCause()));
         }
         return buildErrorResponse(new CustomErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex));

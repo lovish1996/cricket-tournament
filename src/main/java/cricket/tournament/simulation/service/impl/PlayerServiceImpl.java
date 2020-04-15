@@ -13,7 +13,6 @@ import cricket.tournament.simulation.service.PlayerService;
 import cricket.tournament.simulation.service.converter.PlayerConverters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 @Service
 public class PlayerServiceImpl implements PlayerService {
@@ -30,10 +29,10 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public PlayerResponse getPlayerByShirtIdAndTeamName(Long playerShirtId, String teamName) throws EntityNotFoundException{
+    public PlayerResponse getPlayerByShirtIdAndTeamName(Long playerShirtId, String teamName) throws EntityNotFoundException {
         Team team = getTeamFromTeamName(teamName);
         Player player = playerRepository.findByPlayerShirtIdAndTeamId(playerShirtId, team.getId());
-        if(player==null){
+        if (player == null) {
             throw new EntityNotFoundException(Player.class);
         }
         return PlayerConverters.convertPlayerToPlayerResponse(player, team.getTeamCode());
@@ -43,7 +42,7 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public PlayerResponse getPlayerByName(String playerName) throws EntityNotFoundException {
         Player player = playerRepository.findByPlayerName(playerName);
-        if(player==null){
+        if (player == null) {
             throw new EntityNotFoundException(Player.class);
         }
         Long teamCode = teamRepository.findById(player.getTeamId()).get().getTeamCode();

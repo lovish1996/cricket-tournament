@@ -3,7 +3,6 @@ package cricket.tournament.simulation.service.impl;
 import cricket.tournament.simulation.api.dto.request.RankingRequestResponse;
 import cricket.tournament.simulation.api.dto.request.TeamRequest;
 import cricket.tournament.simulation.api.dto.response.TeamResponse;
-import cricket.tournament.simulation.enums.ErrorCode;
 import cricket.tournament.simulation.enums.TeamEnum;
 import cricket.tournament.simulation.exception.error.EntityNotFoundException;
 import cricket.tournament.simulation.repository.model.Ranking;
@@ -46,7 +45,7 @@ public class TeamServiceImpl implements TeamService {
     public TeamResponse getTeamByTeamName(String teamName) {
 
         TeamEnum team = TeamEnum.getValue(teamName);
-        if(team==null)
+        if (team == null)
             throw new EntityNotFoundException(Team.class);
 
         Ranking ranking = converters.getRankingFromTeamName(teamName);

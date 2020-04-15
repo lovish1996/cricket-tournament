@@ -1,10 +1,9 @@
 package cricket.tournament.simulation.exception.ErrorResponse;
 
-import com.fasterxml.jackson.annotation.*;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 
@@ -39,7 +38,7 @@ public class CustomErrorResponse extends BaseErrorResponse {
         this.message = message;
     }
 
-    public CustomErrorResponse(HttpStatus status, Throwable ex){
+    public CustomErrorResponse(HttpStatus status, Throwable ex) {
         this();
         this.status = status;
         this.message = "Unexpected Error";
@@ -47,29 +46,29 @@ public class CustomErrorResponse extends BaseErrorResponse {
     }
 
 
-    public CustomErrorResponse(HttpStatus status, String message, Throwable ex){
+    public CustomErrorResponse(HttpStatus status, String message, Throwable ex) {
         this();
         this.status = status;
         this.message = message;
         this.debugMessage = ex.getLocalizedMessage();
     }
 
-    public void addSubError(SubErrorResponse subErrorResponse){
-        if(this.subErrors==null){
+    public void addSubError(SubErrorResponse subErrorResponse) {
+        if (this.subErrors == null) {
             subErrors = new ArrayList<>();
         }
         subErrors.add(subErrorResponse);
     }
 
-    public void addValidationError(String object, String message){
-        addSubError(new ValidationErrorResponse(object,message));
+    public void addValidationError(String object, String message) {
+        addSubError(new ValidationErrorResponse(object, message));
     }
 
-    public void addValidationError(String object, String field, Object rejectedValue, String message){
+    public void addValidationError(String object, String field, Object rejectedValue, String message) {
         addSubError(new ValidationErrorResponse(object, field, rejectedValue, message));
     }
 
-    public void addValidationError(FieldError fieldError){
+    public void addValidationError(FieldError fieldError) {
         this.addValidationError(
                 fieldError.getObjectName(),
                 fieldError.getField(),
@@ -77,7 +76,7 @@ public class CustomErrorResponse extends BaseErrorResponse {
                 fieldError.getDefaultMessage());
     }
 
-    public void addValidationError(List<FieldError> fieldErrors){
+    public void addValidationError(List<FieldError> fieldErrors) {
         fieldErrors.forEach(this::addValidationError);
     }
 
